@@ -5,7 +5,7 @@
  * Date: 2015/12/29
  * Time: 9:11
  */
-namespace Waters\WebChatApi\Exception;
+namespace Waters\WeiXin\Exception;
 
 class WeiXinException extends \Exception
 {

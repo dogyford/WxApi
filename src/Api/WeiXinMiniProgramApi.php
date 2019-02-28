@@ -6,7 +6,7 @@
  * Time: 12:18
  */
 
-namespace Waters\WebChatApi\Api;
+namespace Waters\WeiXin\Api;
 
 /**
  * 小程序接口

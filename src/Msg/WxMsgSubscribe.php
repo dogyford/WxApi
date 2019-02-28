@@ -6,7 +6,7 @@
  * Date: 2017/3/31
  * Time: 12:10
  */
-namespace Waters\WebChatApi\Msg;
+namespace Waters\WeiXin\Msg;
 
 class WxMsgSubscribe extends WxMsg
 {

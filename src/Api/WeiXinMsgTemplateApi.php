@@ -5,10 +5,10 @@
  * Date: 2017/2/6
  * Time: 17:27
  */
-namespace Waters\WebChatApi\Api;
+namespace Waters\WeiXin\Api;
 
 
-use Waters\WebChatApi\Business\InterfaceWeiXinApi;
+use Waters\WeiXin\Business\InterfaceWeiXinApi;
 
 class WeiXinMsgTemplateApi extends WeiXinApi
 {

@@ -2,7 +2,7 @@
   "name":"waters/webchatapi",
   "description":"TiGo Wei Xin library",
   "keywords":["tigo","WebChat"],
-  "homepage":"https://github.com/dogyford/WxApi",
+  "homepage":"https://github.com/dogyford/wechatapi",
   "type":"library",
   "license":"MIT",
   "authors":[
@@ -12,6 +12,6 @@
     }
   ],
   "autoload":{
-    "psr-4":{"Waters\\WebChatApi\\":"src/"}
+    "psr-4":{"Waters\\WeiXin\\":"src/"}
   }
 }
