@@ -1,7 +1,7 @@
 {
   "name":"waters/wechatapi",
-  "description":"TiGo Wei Xin library",
-  "keywords":["tigo","WebChat"],
+  "description":"Wei Xin library",
+  "keywords":["WeChat"],
   "homepage":"https://github.com/dogyford/wechatapi",
   "type":"library",
   "license":"MIT",

@@ -9,6 +9,7 @@ namespace Waters\WeiXin\Api;
 
 
 use Waters\WeiXin\Business\InterfaceWeiXinApi;
+use Waters\WeiXin\Exception\WeiXinException;
 
 class WeiXinApi
 {
@@ -414,10 +415,10 @@ class WeiXinApi
      * 特殊的curl方法，该方法专用于微信接口访问并获取结果
      * 该方法适用于返回数据以json方式返回的微信接口
      * @param $url
-     * @param array $data
+     * @param array|string $data
      * @return mixed
      */
-    protected function curl($url  , $data = array()){
+    protected function curl($url  , $data = []){
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_TIMEOUT, 3);
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -425,18 +426,30 @@ class WeiXinApi
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        $reponse = curl_exec($ch);
+        if ($data) curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        $response = curl_exec($ch);
         curl_close($ch);
-        $result =  json_decode($reponse , true);
+        $result =  json_decode($response , true);
 
         //因access_token失效导致访问失败，重新access_token再试一次
         /*if($result['errcode'] == 40001 || $result['errcode'] == 40014 ||$result['errcode'] == 42001){
 
         }*/
-        return $result;
+        return $result ? $result : $response;
     }
 
+    /**
+     * 封装curl file
+     * @param $file
+     * @return \CURLFile
+     * @throws WeiXinException
+     */
+    protected function makeCurlFile($file){
+        if (!is_file($file)) $this->throwException('file not exist',['file'=>$file]);
+        $mime = mime_content_type($file);
+        $info = pathinfo($file);
+        return new \CURLFile($file,$mime,$info['basename']);
+    }
 
     /**
      * 多功能curl请求
@@ -675,9 +688,15 @@ class WeiXinApi
         return $str;
     }
 
-
-    private function check(){
-        return true;
+    /**
+     * 抛出异常
+     * @param string $message
+     * @param array $context
+     * @throws WeiXinException
+     */
+    protected function throwException($message = '',$context = []){
+        if ($this->business_interface) $this->business_interface->log($message." context : ".json_encode($context));
+        throw new WeiXinException($message,$context);
     }
 
 
